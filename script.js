@@ -101,31 +101,17 @@ function printLine(text) {
         const p = document.createElement("p");
         output.appendChild(p);
 
-        const tokens = String(text).match(/\\s+|[^\\s]+/g) || [""];
-
-        for (const token of tokens) {
+        for (const char of String(text)) {
             if (generation !== terminalGeneration) return;
-
-            if (/^\\s+$/.test(token)) {
-                p.appendChild(document.createTextNode(token));
-                continue;
-            }
-
-            const word = document.createElement("span");
-            word.className = "terminal-word";
-            word.textContent = token;
-            p.appendChild(word);
-
-            requestAnimationFrame(() => word.classList.add("visible"));
-
-            await new Promise(resolve => setTimeout(resolve, 55));
+            p.textContent += char;
 
             const body = document.querySelector(".terminal-body");
             if (body) body.scrollTop = body.scrollHeight;
+
+            await new Promise(resolve => setTimeout(resolve, 8));
         }
     });
 }
-
 
 const interfaceTranslations = {
     pt: {
