@@ -1,1 +1,8 @@
 *.backup-*
+
+# Backups e arquivos temporarios
+backup/
+*.backup
+*.bak
+*.save
+*.swp
