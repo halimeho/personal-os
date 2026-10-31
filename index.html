@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personal os</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="desktop">
+
+    <header class="topbar">
+        <div class="brand"><span class="prompt-symbol">❯</span> personal os</div>
+        <div class="topbar-info"><span class="online">●</span> <span data-i18n="status">running</span> <span class="separator">/</span> <span data-i18n="system">arch-based human system</span></div>
+      <div class="language-switch">
+          <button class="language-button active" data-lang="pt">PT</button>
+          <span>/</span>
+          <button class="language-button" data-lang="en">EN</button>
+      </div>
+        <div class="clock">
+            <span id="clock">00:00:00</span>
+            <span id="date">00/00/0000</span>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="intro">
+            <p class="path">~/home/halime</p>
+            <h1>hello, <span>world.</span></h1>
+            <p class="description" data-i18n="description">just another human exploring the digital universe.</p>
+
+            <div class="terminal-line">
+                <span class="user">halime@personal-os</span>
+                <span class="path-color">~</span>
+                <span class="symbol">$</span>
+                <span class="command">whoami</span>
+            </div>
+            <p class="output" data-i18n="identity">curious mind · creative soul · aspiring developer</p>
+        </section>
+
+        <section class="directory">
+            <p class="section-title" data-i18n="directories">DIRECTORIES</p>
+
+            <button class="file-link" data-window="about">
+                <span class="file-icon">▤</span>
+                <span>about.txt</span>
+                <span class="file-description" data-i18n="aboutDescription">who am i?</span>
+            </button>
+
+            <button class="file-link" data-window="projects">
+                <span class="file-icon">▣</span>
+                <span>projects/</span>
+                <span class="file-description" data-i18n="projectsDescription">things i've made</span>
+            </button>
+
+            <button class="file-link" data-window="music">
+    <span class="file-icon">♫</span>
+    <span>music.log</span>
+    <span class="file-description" data-i18n="musicDescription">my musical world</span>
+</button>
+
+<button class="file-link" data-window="contact">
+                <span class="file-icon">✉</span>
+                <span>contact.sh</span>
+                <span class="file-description" data-i18n="contactDescription">say hello</span>
+            </button>
+
+            <button class="file-link" data-window="terminal">
+                <span class="file-icon">⌘</span>
+                <span>terminal</span>
+                <span class="file-description" data-i18n="terminalDescription">execute commands</span>
+            </button>
+        </section>
+
+        <footer class="footer-note">
+            <span data-i18n="footer">made with curiosity</span>
+            <span>© 2026 — personal os</span>
+        </footer>
+    </main>
+
+    <!-- ABOUT WINDOW -->
+    <section class="window" id="about">
+        <div class="window-header">
+            <span>about.txt</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/about.txt</p>
+            <h2 data-i18n="aboutTitle">About me</h2>
+            <p data-i18n="aboutText">Oi! Eu sou a Halime, tenho 18 anos, sou neurodivergente e estudante de Ciência da Computação.</p>
+            <p data-i18n="aboutHobbies">Fora da programação, gosto de pintar, jogar e ler. São formas de expressar minha criatividade, descobrir novas perspectivas e encontrar inspiração.</p>
+            <p data-i18n="aboutCurrent">Atualmente, estou explorando o desenvolvimento web, a programação e o desenvolvimento de jogos, transformando minhas ideias em projetos reais.</p>
+            <p data-i18n="aboutExtra">Ainda tenho muito a aprender, mas acredito que essa é a parte mais interessante: estar sempre descobrindo, criando e evoluindo.</p>
+            <p class="cyan" data-i18n="aboutSignature">just a human being with too many ideas and a terminal open.</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS WINDOW -->
+    <section class="window" id="projects">
+        <div class="window-header">
+            <span>projects/</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/projects</p>
+            <h2 data-i18n="projectsTitle">My projects</h2>
+            <p data-i18n="projectOne">01. Personal OS — this website.</p>
+            <p data-i18n="projectTwo">02. Little Oddities — a cozy Roblox game.</p>
+            <p data-i18n="projectsExtra">More projects coming soon...</p>
+        </div>
+    </section>
+
+    <!-- MUSIC WINDOW -->
+<section class="window" id="music">
+    <div class="window-header">
+        <span>music.log</span>
+        <button class="close-window">×</button>
+    </div>
+
+    <div class="window-content music-content">
+        <p class="window-prompt">~/home/halime/music.log</p>
+
+        <h2 data-i18n="musicTitle">My musical world</h2>
+        <p class="music-intro" data-i18n="musicIntro">
+            A little bit of what lives in my headphones.
+        </p>
+
+        <div class="music-player">
+            <div class="music-player-top">
+                <span class="music-equalizer">♫</span>
+                <div>
+                    <strong data-i18n="musicPlaylistTitle">todos os caminhos levam ao rock alternativo melancólico</strong>
+                    <span data-i18n="musicPlaylistMeta">Spotify playlist · Halime</span>
+                </div>
+            </div>
+
+            <iframe
+                src="https://open.spotify.com/embed/playlist/11ozSxzBcHh46q2s0aPP2z?utm_source=generator&theme=0"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title="Halime's Spotify playlist">
+            </iframe>
+        </div>
+
+        <div class="music-genres">
+            <p class="music-section-label" data-i18n="musicGenresTitle">FAVORITE GENRES</p>
+            <div class="genre-tags">
+                <span>Rock</span>
+                <span>Alternative Rock</span>
+                <span>Indie</span>
+            </div>
+        </div>
+
+        <p class="music-signature" data-i18n="musicQuote">
+            more than background noise.
+        </p>
+    </div>
+</section>
+
+<!-- CONTACT WINDOW -->
+    <section class="window" id="contact">
+        <div class="window-header">
+            <span>contact.sh</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/contact.sh</p>
+            <h2 data-i18n="contactTitle">Get in touch</h2>
+            <p data-i18n="contactText">Want to talk about a project?</p>
+            <p data-i18n="contactExtra">You can find me here:</p>
+
+            <div class="contact-links">
+                <a class="contact-item" href="https://www.instagram.com/halime.hossen/" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-label" data-i18n="contactInstagram">Instagram</span>
+                    <span>@halime.hossen ↗</span>
+                </a>
+
+                <button class="contact-item copy-discord" type="button" data-copy="hhossen_">
+                    <span class="contact-label" data-i18n="contactDiscord">Discord</span>
+                    <span>hhossen_ · <span data-copy-label data-i18n="copyLabel">copiar</span></span>
+                </button>
+
+                <a class="contact-item" href="mailto:h906049@gmail.com">
+                    <span class="contact-label" data-i18n="contactEmail">E-mail</span>
+                    <span>h906049@gmail.com ↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERMINAL WINDOW -->
+    <section class="window terminal-window" id="terminal">
+        <div class="window-header">
+            <span>terminal — bash</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content terminal-body">
+            <p data-i18n="terminalWelcome">Personal OS [Version 1.0]</p>
+            <p>Type <span class="cyan">help</span> to see available commands.</p>
+            <div id="terminal-output"></div>
+            <div class="input-line">
+                <span class="cyan">halime@personal-os:~$</span>
+                <input id="terminal-input" type="text" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

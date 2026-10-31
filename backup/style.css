@@ -1,0 +1,271 @@
+
+:root {
+    --background: #05090D;
+    --panel: #0D151B;
+    --cyan: #65DFF5;
+    --text: #E1EDF1;
+    --muted: #82959D;
+    --border: #24414B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    padding: 0 7%;
+}
+
+.topbar {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.logo span,
+.cyan {
+    color: var(--cyan);
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: var(--cyan);
+}
+
+.system-status {
+    font-size: 11px;
+    color: var(--cyan);
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--cyan);
+    border-radius: 50%;
+    margin-right: 7px;
+    box-shadow: 0 0 10px var(--cyan);
+}
+
+.hero {
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+}
+
+.terminal-label {
+    color: var(--cyan);
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 75px);
+    line-height: 1.1;
+    letter-spacing: -4px;
+}
+
+.hero h2 {
+    font-size: 23px;
+    margin-top: 20px;
+}
+
+.description {
+    max-width: 480px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+    flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button {
+    padding: 13px 18px;
+    text-decoration: none;
+    font-size: 11px;
+    transition: 0.2s;
+}
+
+.primary-button {
+    background: var(--cyan);
+    color: var(--background);
+}
+
+.primary-button:hover {
+    box-shadow: 0 0 20px #65dff566;
+}
+
+.secondary-button {
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.secondary-button:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.terminal-window {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    min-height: 320px;
+    box-shadow: 0 0 35px #0008;
+}
+
+.window-header {
+    height: 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.window-controls span {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--cyan);
+    border-radius: 50%;
+}
+
+.terminal-content {
+    padding: 20px;
+    min-height: 220px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+#terminal-form {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    font-size: 11px;
+    color: var(--cyan);
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 11px;
+    width: 100%;
+}
+
+.system-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    margin-bottom: 60px;
+}
+
+.system-info div {
+    padding: 20px;
+    border-right: 1px solid var(--border);
+}
+
+.system-info span,
+.system-info strong {
+    display: block;
+    font-size: 10px;
+}
+
+.system-info span {
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.system-info strong {
+    font-weight: 500;
+}
+
+@media (max-width: 850px) {
+    body {
+        padding: 0 5%;
+    }
+
+    .topbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 20px 0;
+        gap: 20px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 65px 0;
+        gap: 45px;
+    }
+
+    .system-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 450px) {
+    .system-status {
+        font-size: 9px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .system-info div {
+        padding: 13px;
+    }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personal os</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="desktop">
+
+    <header class="topbar">
+        <div class="brand"><span class="prompt-symbol">❯</span> personal os</div>
+        <div class="topbar-info"><span class="online">●</span> running <span class="separator">/</span> arch-based human system</div>
+        <div class="clock">
+            <span id="clock">00:00:00</span>
+            <span id="date">00/00/0000</span>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="intro">
+            <p class="path">~/home/halime</p>
+            <h1>hello, <span>world.</span></h1>
+            <p class="description">just another human exploring the digital universe.</p>
+
+            <div class="terminal-line">
+                <span class="user">halime@personal-os</span>
+                <span class="path-color">~</span>
+                <span class="symbol">$</span>
+                <span class="command">whoami</span>
+            </div>
+            <p class="output">curious mind · creative soul · aspiring developer</p>
+        </section>
+
+        <section class="directory">
+            <p class="section-title">DIRECTORIES</p>
+
+            <button class="file-link" data-window="about">
+                <span class="file-icon">▤</span>
+                <span>about.txt</span>
+                <span class="file-description">who am i?</span>
+            </button>
+
+            <button class="file-link" data-window="projects">
+                <span class="file-icon">▣</span>
+                <span>projects/</span>
+                <span class="file-description">things i've made</span>
+            </button>
+
+            <button class="file-link" data-window="contact">
+                <span class="file-icon">✉</span>
+                <span>contact.sh</span>
+                <span class="file-description">say hello</span>
+            </button>
+
+            <button class="file-link" data-window="terminal">
+                <span class="file-icon">⌘</span>
+                <span>terminal</span>
+                <span class="file-description">execute commands</span>
+            </button>
+        </section>
+
+        <footer class="footer-note">
+            <span>made with curiosity</span>
+            <span>© 2026 — personal os</span>
+        </footer>
+    </main>
+
+    <!-- ABOUT WINDOW -->
+    <section class="window" id="about">
+        <div class="window-header">
+            <span>about.txt</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/about.txt</p>
+            <h2>About me</h2>
+            <p>Hello! I'm a curious person who loves technology, games and creative projects.</p>
+            <p>This is my little corner of the internet.</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS WINDOW -->
+    <section class="window" id="projects">
+        <div class="window-header">
+            <span>projects/</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/projects</p>
+            <h2>My projects</h2>
+            <p>01. Personal OS — this website.</p>
+            <p>02. Little Oddities — a cozy Roblox game.</p>
+            <p>More projects coming soon...</p>
+        </div>
+    </section>
+
+    <!-- CONTACT WINDOW -->
+    <section class="window" id="contact">
+        <div class="window-header">
+            <span>contact.sh</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content">
+            <p class="window-prompt">~/home/halime/contact.sh</p>
+            <h2>Get in touch</h2>
+            <p>Want to talk about a project?</p>
+            <p>Add your email or social links here later.</p>
+        </div>
+    </section>
+
+    <!-- TERMINAL WINDOW -->
+    <section class="window terminal-window" id="terminal">
+        <div class="window-header">
+            <span>terminal — bash</span>
+            <button class="close-window">×</button>
+        </div>
+        <div class="window-content terminal-body">
+            <p>Personal OS [Version 1.0]</p>
+            <p>Type <span class="cyan">help</span> to see available commands.</p>
+            <div id="terminal-output"></div>
+            <div class="input-line">
+                <span class="cyan">halime@personal-os:~$</span>
+                <input id="terminal-input" type="text" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

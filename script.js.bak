@@ -1,0 +1,380 @@
+function updateClock() {
+    const now = new Date();
+    const locale = localStorage.getItem("personal-os-language") === "en"
+        ? "en-US" : "pt-BR";
+
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString(locale);
+    document.getElementById("date").textContent =
+        now.toLocaleDateString(locale);
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// OPEN WINDOWS
+let highestZ = 10;
+
+function openWindow(id) {
+    const win = document.getElementById(id);
+    if (!win) return;
+
+    win.classList.remove("minimized");
+    win.classList.add("active");
+    win.style.zIndex = ++highestZ;
+
+    if (id === "terminal") {
+        setTimeout(() => {
+            document.getElementById("terminal-input").focus();
+        }, 50);
+    }
+}
+
+document.querySelectorAll("[data-window]").forEach(button => {
+    button.addEventListener("click", () => {
+        openWindow(button.dataset.window);
+    });
+});
+
+// CLOSE WINDOWS
+document.querySelectorAll(".close-window").forEach(button => {
+    button.addEventListener("click", () => {
+        button.closest(".window").classList.remove("active");
+    });
+});
+
+// DRAG WINDOWS
+document.querySelectorAll(".window").forEach(win => {
+    const header = win.querySelector(".window-header");
+    let dragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    header.addEventListener("pointerdown", event => {
+        if (event.target.closest("button")) return;
+
+        dragging = true;
+        const rect = win.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+        win.style.transform = "none";
+        win.style.left = rect.left + "px";
+        win.style.top = rect.top + "px";
+        win.style.zIndex = ++highestZ;
+        header.setPointerCapture(event.pointerId);
+    });
+
+    header.addEventListener("pointermove", event => {
+        if (!dragging) return;
+        win.style.left = event.clientX - offsetX + "px";
+        win.style.top = event.clientY - offsetY + "px";
+    });
+
+    header.addEventListener("pointerup", () => {
+        dragging = false;
+    });
+});
+
+
+// TERMINAL COMMANDS + MULTILANGUAGE
+
+const input = document.getElementById("terminal-input");
+const output = document.getElementById("terminal-output");
+const languageButtons = document.querySelectorAll(".language-button");
+
+let currentLanguage = localStorage.getItem("personal-os-language") || "pt";
+
+function printLine(text) {
+    const p = document.createElement("p");
+    p.textContent = text;
+    output.appendChild(p);
+}
+
+
+const interfaceTranslations = {
+    pt: {
+        status: "online",
+        system: "sistema humano baseado em Arch",
+        description: "só mais uma pessoa explorando o universo digital.",
+        identity: "mente curiosa · alma criativa · desenvolvedora em formação",
+        directories: "DIRETÓRIOS",
+        aboutDescription: "quem sou eu?",
+        projectsDescription: "coisas que eu criei",
+        contactDescription: "diga olá",
+        terminalDescription: "executar comandos",
+        footer: "feito com curiosidade",
+        aboutTitle: "Sobre mim",
+        aboutText: "Olá! Sou uma pessoa curiosa que ama tecnologia, jogos e projetos criativos.",
+        aboutExtra: "Este é meu pequeno cantinho na internet.",
+        projectsTitle: "Meus projetos",
+        projectOne: "01. Personal OS — este site.",
+        projectTwo: "02. Little Oddities — um jogo aconchegante no Roblox.",
+        projectsExtra: "Mais projetos em breve...",
+        contactTitle: "Entre em contato",
+        contactText: "Quer conversar sobre algum projeto?",
+        contactExtra: "Adicionarei meu e-mail e minhas redes sociais aqui em breve.",
+        terminalWelcome: "Personal OS [Versão 1.0]"
+    },
+    en: {
+        status: "running",
+        system: "arch-based human system",
+        description: "just another human exploring the digital universe.",
+        identity: "curious mind · creative soul · aspiring developer",
+        directories: "DIRECTORIES",
+        aboutDescription: "who am i?",
+        projectsDescription: "things i've made",
+        contactDescription: "say hello",
+        terminalDescription: "execute commands",
+        footer: "made with curiosity",
+        aboutTitle: "About me",
+        aboutText: "Hello! I'm a curious person who loves technology, games and creative projects.",
+        aboutExtra: "This is my little corner of the internet.",
+        projectsTitle: "My projects",
+        projectOne: "01. Personal OS — this website.",
+        projectTwo: "02. Little Oddities — a cozy Roblox game.",
+        projectsExtra: "More projects coming soon...",
+        contactTitle: "Get in touch",
+        contactText: "Want to talk about a project?",
+        contactExtra: "I'll add my email and social links here soon.",
+        terminalWelcome: "Personal OS [Version 1.0]"
+    }
+};
+
+function setLanguage(language) {
+    currentLanguage = language;
+    localStorage.setItem("personal-os-language", language);
+
+    languageButtons.forEach(button => {
+        button.classList.toggle("active", button.dataset.lang === language);
+    });
+
+    document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        const translation = interfaceTranslations[language][key];
+
+        if (translation !== undefined) {
+            element.textContent = translation;
+        }
+    });
+
+    updateClock();
+}
+
+languageButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+        printLine(languageMessages[currentLanguage].changed);
+    });
+});
+
+const languageMessages = {
+    pt: {
+        changed: "Idioma alterado para português.",
+        help: "Comandos disponíveis:",
+        commands: "ajuda | quem-sou-eu | sobre | projetos | contato | jogos | computador | perifericos | redes | sistema | data | limpar | sair",
+        identity: "mente curiosa · alma criativa · desenvolvedora em formação",
+        about: "Abrindo about.txt...",
+        projects: "Abrindo projects/...",
+        contact: "Abrindo contact.sh...",
+        games: "~/games — JOGOS FAVORITOS",
+        gamesCount: "9 jogos na minha lista de favoritos.",
+        pc: "~/system — INFORMAÇÕES DO SISTEMA",
+        monitor: "Ainda não informado",
+        peripherals: "~/hardware — MEUS PERIFÉRICOS",
+        social: "~/social — ME ENCONTRE ONLINE",
+        unknown: "comando não encontrado: ",
+        hint: "Digite 'ajuda' para ver os comandos disponíveis."
+    },
+    en: {
+        changed: "Language changed to English.",
+        help: "Available commands:",
+        commands: "help | whoami | about | projects | contact | games | pc | peripherals | social | neofetch | date | clear | exit",
+        identity: "curious mind · creative soul · aspiring developer",
+        about: "Opening about.txt...",
+        projects: "Opening projects/...",
+        contact: "Opening contact.sh...",
+        games: "~/games — FAVORITE GAMES",
+        gamesCount: "9 games in my favorites list.",
+        pc: "~/system — SYSTEM INFORMATION",
+        monitor: "Not informed yet",
+        peripherals: "~/hardware — MY PERIPHERALS",
+        social: "~/social — FIND ME ONLINE",
+        unknown: "command not found: ",
+        hint: "Type 'help' to see available commands."
+    }
+};
+
+const aliases = {
+    "help": "help",
+    "ajuda": "help",
+    "whoami": "whoami",
+    "quem-sou-eu": "whoami",
+    "about": "about",
+    "sobre": "about",
+    "projects": "projects",
+    "projetos": "projects",
+    "contact": "contact",
+    "contato": "contact",
+    "games": "games",
+    "jogos": "games",
+    "pc": "pc",
+    "computador": "pc",
+    "peripherals": "peripherals",
+    "perifericos": "peripherals",
+    "social": "social",
+    "redes": "social",
+    "neofetch": "neofetch",
+    "sistema": "neofetch",
+    "date": "date",
+    "data": "date",
+    "clear": "clear",
+    "limpar": "clear",
+    "exit": "exit",
+    "sair": "exit"
+};
+
+function normalizeCommand(value) {
+    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+setLanguage(currentLanguage);
+
+input.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+
+    const typedCommand = input.value.trim().toLowerCase();
+    const command = normalizeCommand(typedCommand);
+
+    printLine("halime@personal-os:~$ " + typedCommand);
+    input.value = "";
+
+    const cmd = aliases[command] || command;
+    const t = languageMessages[currentLanguage];
+
+    switch (cmd) {
+        case "help":
+            printLine(t.help);
+            printLine(t.commands);
+            break;
+
+        case "whoami":
+            printLine(t.identity);
+            break;
+
+        case "about":
+            openWindow("about");
+            printLine(t.about);
+            break;
+
+        case "projects":
+            openWindow("projects");
+            printLine(t.projects);
+            break;
+
+        case "contact":
+            openWindow("contact");
+            printLine(t.contact);
+            break;
+
+        case "games":
+            printLine("");
+            printLine(t.games);
+            printLine("--------------------------------");
+            printLine("[01] Resident Evil 4");
+            printLine("[02] A Hat in Time");
+            printLine("[03] Resident Evil Village");
+            printLine("[04] Portal 2");
+            printLine("[05] Minecraft");
+            printLine("[06] No, I'm not a Human");
+            printLine("[07] Little Nightmares");
+            printLine("[08] Overcooked! 2");
+            printLine("[09] Detroit: Become Human");
+            printLine("--------------------------------");
+            printLine(t.gamesCount);
+            break;
+
+        case "pc":
+            printLine("");
+            printLine(t.pc);
+            printLine("--------------------------------");
+            printLine("Sistema operacional : Arch Linux");
+            printLine("Processador         : AMD Ryzen 7 5700X");
+            printLine("Placa de vídeo      : AMD Radeon RX 7600");
+            printLine("Memória RAM         : 16 GB");
+            printLine("SSD                 : 1 TB");
+            printLine("HD                  : 1 TB");
+            printLine("--------------------------------");
+            printLine("Monitor             : " + (currentLanguage === "pt" ? "Ainda não informado" : "Not informed yet"));
+            printLine("Gerenciador de janelas: Niri");
+            printLine("Shell               : zsh");
+            break;
+
+        case "peripherals":
+            printLine("");
+            printLine(t.peripherals);
+            printLine("--------------------------------");
+            printLine("Teclado    : AULA F75");
+            printLine("Headset    : FIFINE H9");
+            printLine("Mouse      : FuryCube R7");
+            printLine("Microfone  : Maono DGM20");
+            printLine("Mousepad   : Apex Control Titorion");
+            printLine("Caixa de som: Creative Pebble SE 2.0");
+            printLine("--------------------------------");
+            break;
+
+        case "social":
+            printLine("");
+            printLine(t.social);
+            printLine("--------------------------------");
+            printLine("Instagram : @halime.hossen");
+            printLine("           instagram.com/halime.hossen");
+            printLine("");
+            printLine("Steam     : halimehossen");
+            printLine("           steamcommunity.com/id/halimehossen/");
+            printLine("");
+            printLine("Twitter/X : @amebaa_hd");
+            printLine("           x.com/amebaa_hd");
+            printLine("");
+            printLine("Discord   : hhossen_");
+            printLine("--------------------------------");
+            break;
+
+        case "neofetch":
+            printLine("");
+            printLine("       /\\       halime@personal-os");
+            printLine("      /  \\      -------------------");
+            printLine("     / /\\ \\     OS: Arch Linux");
+            printLine("    / ____ \\    Host: Personal OS");
+            printLine("   /_/    \\_\\   CPU: Ryzen 7 5700X");
+            printLine("                GPU: Radeon RX 7600");
+            printLine("                RAM: 16 GB");
+            printLine("                WM: Niri");
+            printLine("                Shell: zsh");
+            printLine("                Theme: Black / Cyan");
+            printLine("");
+            break;
+
+        case "date":
+            printLine(new Date().toLocaleString(currentLanguage === "pt" ? "pt-BR" : "en-US"));
+            break;
+
+        case "clear":
+            output.innerHTML = "";
+            break;
+
+        case "exit":
+            document.getElementById("terminal").classList.remove("active");
+            break;
+
+        case "":
+            break;
+
+        default:
+            printLine(t.unknown + typedCommand);
+            printLine(t.hint);
+    }
+
+    const body = document.querySelector(".terminal-body");
+    body.scrollTop = body.scrollHeight;
+});

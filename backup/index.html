@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal OS</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">PERSONAL<span>_OS</span></div>
+
+        <nav>
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+        </div>
+    </header>
+
+    <main id="home">
+
+        <section class="hero">
+
+            <div class="hero-info">
+
+                <p class="terminal-label">
+                    root@personal-os:~$
+                </p>
+
+                <h1>HELLO,<br>WORLD<span class="cyan">_</span></h1>
+
+                <h2>I'm <span class="cyan">YOUR NAME</span>.</h2>
+
+                <p class="description">
+                    Computer Science student, technology enthusiast
+                    and creative mind exploring the digital world.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="primary-button">
+                        EXPLORE PROJECTS
+                    </a>
+
+                    <a href="#about" class="secondary-button">
+                        ABOUT ME
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="terminal-window">
+
+                <div class="window-header">
+                    <span>terminal — personal-os</span>
+
+                    <div class="window-controls">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="terminal-content" id="terminal-output">
+                    <p>PERSONAL OS [Version 1.0]</p>
+                    <p>Copyright (C) 2026</p>
+                    <br>
+                    <p>Welcome to my personal environment.</p>
+                    <p>Type <span class="cyan">help</span> to see available commands.</p>
+                </div>
+
+                <form id="terminal-form">
+                    <label for="terminal-input">
+                        visitor@personal-os:~$
+                    </label>
+
+                    <input
+                        id="terminal-input"
+                        type="text"
+                        autocomplete="off"
+                        autofocus
+                    >
+                </form>
+
+            </div>
+
+        </section>
+
+        <section class="system-info">
+
+            <div>
+                <span>OPERATING SYSTEM</span>
+                <strong>PERSONAL OS</strong>
+            </div>
+
+            <div>
+                <span>ENVIRONMENT</span>
+                <strong>LINUX / WEB</strong>
+            </div>
+
+            <div>
+                <span>VERSION</span>
+                <strong>1.0.0</strong>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong class="cyan">RUNNING</strong>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString("pt-BR");
+    document.getElementById("date").textContent =
+        now.toLocaleDateString("pt-BR");
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// OPEN WINDOWS
+let highestZ = 10;
+
+function openWindow(id) {
+    const win = document.getElementById(id);
+    if (!win) return;
+
+    win.classList.remove("minimized");
+    win.classList.add("active");
+    win.style.zIndex = ++highestZ;
+
+    if (id === "terminal") {
+        setTimeout(() => {
+            document.getElementById("terminal-input").focus();
+        }, 50);
+    }
+}
+
+document.querySelectorAll("[data-window]").forEach(button => {
+    button.addEventListener("click", () => {
+        openWindow(button.dataset.window);
+    });
+});
+
+// CLOSE WINDOWS
+document.querySelectorAll(".close-window").forEach(button => {
+    button.addEventListener("click", () => {
+        button.closest(".window").classList.remove("active");
+    });
+});
+
+// DRAG WINDOWS
+document.querySelectorAll(".window").forEach(win => {
+    const header = win.querySelector(".window-header");
+    let dragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    header.addEventListener("pointerdown", event => {
+        if (event.target.closest("button")) return;
+
+        dragging = true;
+        const rect = win.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+        win.style.transform = "none";
+        win.style.left = rect.left + "px";
+        win.style.top = rect.top + "px";
+        win.style.zIndex = ++highestZ;
+        header.setPointerCapture(event.pointerId);
+    });
+
+    header.addEventListener("pointermove", event => {
+        if (!dragging) return;
+        win.style.left = event.clientX - offsetX + "px";
+        win.style.top = event.clientY - offsetY + "px";
+    });
+
+    header.addEventListener("pointerup", () => {
+        dragging = false;
+    });
+});
+
+// TERMINAL COMMANDS
+const input = document.getElementById("terminal-input");
+const output = document.getElementById("terminal-output");
+
+function printLine(text) {
+    const p = document.createElement("p");
+    p.textContent = text;
+    output.appendChild(p);
+}
+
+input.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+
+    const command = input.value.trim().toLowerCase();
+    printLine("halime@personal-os:~$ " + command);
+    input.value = "";
+
+    switch (command) {
+        case "help":
+            printLine("Available commands:");
+            printLine("whoami | about | projects | contact | games | pc | peripherals | social | neofetch | date | clear | exit");
+            break;
+
+        case "whoami":
+            printLine("curious mind · creative soul · aspiring developer");
+            break;
+
+        case "about":
+            openWindow("about");
+            printLine("Opening about.txt...");
+            break;
+
+        case "projects":
+            openWindow("projects");
+            printLine("Opening projects/...");
+            break;
+
+        case "contact":
+            openWindow("contact");
+            printLine("Opening contact.sh...");
+            break;
+
+        case "games":
+            printLine("");
+            printLine("~/games — FAVORITE GAMES");
+            printLine("--------------------------------");
+            printLine("[01] Resident Evil 4");
+            printLine("[02] A Hat in Time");
+            printLine("[03] Resident Evil Village");
+            printLine("[04] Portal 2");
+            printLine("[05] Minecraft");
+            printLine("[06] No, I'm not a Human");
+            printLine("[07] Little Nightmares");
+            printLine("[08] Overcooked! 2");
+            printLine("[09] Detroit: Become Human");
+            printLine("--------------------------------");
+            printLine("9 games in my favorites list.");
+            break;
+
+        case "pc":
+            printLine("");
+            printLine("~/system — SYSTEM INFORMATION");
+            printLine("--------------------------------");
+            printLine("OS        : Arch Linux");
+            printLine("CPU       : [model to confirm]");
+            printLine("GPU       : AMD Radeon RX 7600");
+            printLine("RAM       : 16 GB");
+            printLine("SSD       : 1 TB");
+            printLine("HDD       : 1 TB");
+            printLine("--------------------------------");
+            printLine("Display   : details coming soon");
+            printLine("WM        : Niri");
+            printLine("Shell     : zsh");
+            break;
+
+        case "social":
+            printLine("");
+            printLine("~/social — FIND ME ONLINE");
+            printLine("--------------------------------");
+            printLine("Instagram : @halime.hossen");
+            printLine("           instagram.com/halime.hossen");
+            printLine("");
+            printLine("Steam     : halimehossen");
+            printLine("           steamcommunity.com/id/halimehossen/");
+            printLine("");
+            printLine("Twitter/X : @amebaa_hd");
+            printLine("           x.com/amebaa_hd");
+            printLine("");
+            printLine("Discord   : hhossen_");
+            printLine("--------------------------------");
+            break;
+
+        case "neofetch":
+            printLine("");
+            printLine("       /\\        halime@personal-os");
+            printLine("      /  \\       -------------------");
+            printLine("     / /\\ \\      OS: Arch Linux");
+            printLine("    / ____ \\     Host: Personal OS");
+            printLine("   /_/    \\_\\    CPU: To be confirmed");
+            printLine("                  GPU: Radeon RX 7600");
+            printLine("                  RAM: 16 GB");
+            printLine("                  WM: Niri");
+            printLine("                  Shell: zsh");
+            printLine("                  Theme: Black / Cyan");
+            printLine("");
+            break;
+
+        case "date":
+            printLine(new Date().toString());
+            break;
+
+        case "clear":
+            output.innerHTML = "";
+            break;
+
+        case "exit":
+            document.getElementById("terminal").classList.remove("active");
+            break;
+
+        case "":
+            break;
+
+        default:
+            printLine("command not found: " + command);
+            printLine("Type 'help' to see available commands.");
+    }
+
+    const body = document.querySelector(".terminal-body");
+    body.scrollTop = body.scrollHeight;
+});
